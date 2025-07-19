@@ -1,0 +1,1 @@
+web: gunicorn adama_lab.wsgi

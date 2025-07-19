@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Calculs scientifiques</h2>
+
+<form method="post">
+  {% csrf_token %}
+  <h3>Interpolation de Lagrange</h3>
+  <label>x points (ex: 1,2,3):</label>
+  <input type="text" name="x_points"><br>
+  <label>y points (ex: 2,3,4):</label>
+  <input type="text" name="y_points"><br>
+  <label>x à évaluer :</label>
+  <input type="number" name="x_eval" step="0.1"><br>
+  <input type="hidden" name="type" value="interpolation">
+  <button type="submit">Interpoler</button>
+</form>
+
+<hr>
+
+<form method="post">
+  {% csrf_token %}
+  <h3>Intégration sin(x) entre 0 et 10</h3>
+  <label>Méthode :</label>
+  <select name="methode">
+    <option value="trapeze">Trapèze</option>
+    <option value="simpson">Simpson</option>
+  </select><br>
+  <input type="hidden" name="type" value="integration">
+  <button type="submit">Intégrer</button>
+</form>
+
+<hr>
+
+<form method="post">
+  {% csrf_token %}
+  <h3>Résolution EDO : y' = x + y, y(0) = 1</h3>
+  <input type="hidden" name="type" value="edo">
+  <button type="submit">Résoudre (Euler explicite)</button>
+</form>
+
+{% if result %}
+<hr>
+<h3>Résultat :</h3>
+<p>{{ result }}</p>
+{% endif %}
+{% endblock %}

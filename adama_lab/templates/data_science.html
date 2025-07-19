@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Analyse Data Science</h2>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Analyser</button>
+</form>
+
+{% if stats %}
+<hr>
+<h3>Statistiques descriptives</h3>
+{{ stats|safe }}
+{% endif %}
+
+{% if image_path %}
+<h3>Graphique</h3>
+<img src="{{ image_path }}" width="600">
+{% endif %}
+
+{% endblock %}

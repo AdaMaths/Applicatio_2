@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: adama-lab
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn PythonProject3.wsgi
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: mon_app_en_ligne.settings
+      - key: PYTHON_VERSION
+        value: 3.11
