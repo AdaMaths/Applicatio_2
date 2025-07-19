@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Simulation Navier-Stokes</h2>
+<form method="post">
+  {% csrf_token %}
+  <label>Reynolds :</label><input type="number" name="reynolds"><br>
+  <label>Vitesse initiale :</label><input type="number" name="vitesse"><br>
+  <button type="submit">Lancer</button>
+</form>
+{% if result %}
+  <p>Résultat : {{ result }}</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Simulation Laser</h2>
+<form method="post">
+  {% csrf_token %}
+  <label>Xmin :</label><input type="number" name="xmin" step="0.1"><br>
+  <label>Xmax :</label><input type="number" name="xmax" step="0.1"><br>
+  <label>Pas :</label><input type="number" name="pas" step="0.01"><br>
+  <label>w0 :</label><input type="number" name="w0" step="0.1"><br>
+  <label>Longueur cavité :</label><input type="number" name="longueur" step="0.1"><br>
+  <label>Pertes de réflexion :</label><input type="number" name="pertes" step="0.01"><br>
+  <button type="submit">Lancer la simulation</button>
+</form>
+
+{% if result %}
+<h3>Résultats :</h3>
+<canvas id="graph"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('graph');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ result.x|safe }},
+        datasets: [{
+            label: 'Intensité du faisceau',
+            data: {{ result.y|safe }},
+            borderColor: 'blue',
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: { title: { display: true, text: 'x (mm)' }},
+            y: { title: { display: true, text: 'Intensité' }}
+        }
+    }
+});
+</script>
+{% endif %}
+{% endblock %}
